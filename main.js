@@ -1,24 +1,54 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import "./style.css";
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+import Lenis from "@studio-freight/lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-setupCounter(document.querySelector('#counter'))
+gsap.registerPlugin(ScrollTrigger);
+
+const easeOutQuart = (x) => {
+  return 1 - Math.pow(1 - x, 4);
+};
+
+const lenis = new Lenis({
+  lerp: 0.2, // 慣性の強さ
+});
+
+lenis.on("scroll", ScrollTrigger.update);
+
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000);
+});
+
+const test = document.querySelector(".test");
+gsap.to(test, {
+  scrollTrigger: test,
+  x: 500,
+  start: "top top", // when the top of the trigger hits the top of the viewport
+  end: "+=500", // end after scrolling 500px beyond the start
+  scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+
+// アンカーリンクを取得
+const anchor = document.querySelector(".js-anchor");
+// クリック時に目的の箇所までスクロールする
+anchor.addEventListener("click", (e) => {
+  // urlを変更しないようにする
+  e.preventDefault();
+  // スクロール
+  lenis.scrollTo("#animation");
+});
+
+const model = document.querySelector(".test");
+console.log(model);
+// // スクロールの強さに応じてモデルを回転させる
+// model.rotation.y += 0.01 + Math.abs(lenis.velocity * 0.005);
+// // lenis.velocityをコンソールログで表示
+// Math.abs(lenis.velocity) > 0.01 && console.log(lenis.velocity);
+
+requestAnimationFrame(raf);

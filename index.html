@@ -7,7 +7,44 @@
     <title>Vite App</title>
   </head>
   <body>
-    <div id="app"></div>
+    <main>
+      <canvas class="webgl"></canvas>
+      <section class="bl_hero">
+        <h1 class="bl_hero_text"><span>Welcome to Smooth Scroll Demo</span></h1>
+        <a href="#animation" class="el_anchor js-anchor">
+          <span>Scroll</span>
+        </a>
+      </section>
+      <section id="animation" class="bl_section">
+        <div class="bl_section_inner">
+          <p class="bl_section_text">
+            <span>スクロールに合わせて</span><br /><span
+              >動くアニメーションや</span
+            >
+          </p>
+        </div>
+      </section>
+      <section class="bl_section bl_section__right">
+        <div class="bl_section_inner">
+          <p class="bl_section_text">
+            <span>モーダルとも</span><br /><span>一緒に使えます</span>
+          </p>
+          <button class="el_button js-modal-open-button">モーダルを開く</button>
+        </div>
+      </section>
+      <section class="bl_section">
+        <div class="bl_section_inner">
+          <p class="bl_section_text">
+            <span>スマートフォンでの</span><br /><span
+              >慣性スクロールの有効/無効を</span
+            ><br /><span>切り替えることもできます</span>
+          </p>
+        </div>
+      </section>
+      <section class="rotation">
+        <div class="test"></div>
+      </section>
+    </main>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
